@@ -40,7 +40,7 @@ New-AzVm `
 -SshKeyName $sshKeyName  -PublicIpAddressName $publicIpAddressName
 
 
-$scriptUrl = "https://raw.githubusercontent.com/Pugach-Nazar/azure_task_12_deploy_app_with_vm_extention/develop/install-app.sh"
+$scriptUrl = "https://raw.githubusercontent.com/Pugach-Nazar/azure_task_12_deploy_app_with_vm_extention/main/install-app.sh"
 
 Set-AzVMExtension `
     -ResourceGroupName $resourceGroupName `
