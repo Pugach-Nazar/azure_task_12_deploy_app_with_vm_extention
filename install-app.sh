@@ -11,7 +11,7 @@ REPO_DIR="/tmp/azure_task_12_deploy_app_with_vm_extention"
 APP_DIR="/app"
 
 rm -rf "$REPO_DIR"
-git clone "$REPO_URL" "$REPO_DIR"
+git clone --branch develop "$REPO_URL" "$REPO_DIR"
 
 # Copy application files to /app
 mkdir -p "$APP_DIR"

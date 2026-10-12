@@ -6,7 +6,7 @@ $subnetName = "default"
 $vnetAddressPrefix = "10.0.0.0/16"
 $subnetAddressPrefix = "10.0.0.0/24"
 $sshKeyName = "linuxboxsshkey"
-$sshKeyPublicKey = Get-Content "~/.ssh/id_rsa.pub"
+$sshKeyPublicKey = Get-Content "~/.ssh/id_ed25519.pub"
 $publicIpAddressName = "qwerty"
 $vmName = "matebox"
 $vmImage = "Ubuntu2204"
@@ -26,7 +26,7 @@ New-AzVirtualNetwork -Name $virtualNetworkName -ResourceGroupName $resourceGroup
 
 New-AzSshKey -Name $sshKeyName -ResourceGroupName $resourceGroupName -PublicKey $sshKeyPublicKey
 
-New-AzPublicIpAddress -Name $publicIpAddressName -ResourceGroupName $resourceGroupName -Location $location -Sku Basic -AllocationMethod Dynamic -DomainNameLabel $dnsLabel
+New-AzPublicIpAddress -Name $publicIpAddressName -ResourceGroupName $resourceGroupName -Location $location -Sku Standard -AllocationMethod Static -DomainNameLabel $dnsLabel
 
 New-AzVm `
 -ResourceGroupName $resourceGroupName `
@@ -40,7 +40,7 @@ New-AzVm `
 -SshKeyName $sshKeyName  -PublicIpAddressName $publicIpAddressName
 
 
-$scriptUrl = "https://raw.githubusercontent.com/Pugach-Nazar/azure_task_12_deploy_app_with_vm_extention/main/install-app.sh"
+$scriptUrl = "https://raw.githubusercontent.com/Pugach-Nazar/azure_task_12_deploy_app_with_vm_extention/develop/install-app.sh"
 
 Set-AzVMExtension `
     -ResourceGroupName $resourceGroupName `
@@ -50,7 +50,7 @@ Set-AzVMExtension `
     -Publisher "Microsoft.Azure.Extensions" `
     -ExtensionType "CustomScript" `
     -TypeHandlerVersion "2.1" `
-    -Setting @{
+    -Settings @{
         fileUris = @($scriptUrl)
         commandToExecute = "bash install-app.sh"
     }
